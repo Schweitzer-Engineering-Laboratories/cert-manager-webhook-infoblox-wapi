@@ -38,12 +38,7 @@ Docker images are stored in GitHub's [ghcr.io](ghcr.io) registry, specifically a
 
 ```
 helm repo add cert-manager-webhook-infoblox-wapi https://luisico.github.io/cert-manager-webhook-infoblox-wapi
-
-# The values file below is optional, if you don't need it you can remove that line.
-helm -n cert-manager install \
-  cert-manager-webhook \
-  cert-manager-webhook-infoblox-wapi/cert-manager-webhook-infoblox-wapi \
-  -f cert-manager-infoblox-values.yaml
+helm -n cert-manager install cert-manager-webhook-infoblox-wapi
 ```
 
 #### From source
@@ -150,7 +145,7 @@ roleRef:
 subjects:
   - apiGroup: ""
     kind: ServiceAccount
-    name: cert-manager-webhook-cert-manager-webhook-infoblox-wapi
+    name: webhook-infoblox-wapi
     namespace: cert-manager
 ```
 
@@ -205,12 +200,6 @@ You can then run the test suite with:
 ```bash
 TEST_ZONE_NAME=example.com. make test
 ```
-
-## Building
-
-1. If you've made any changes to `go.mod`, run `go mod tindy`
-1. Update the `Makefile` with a new `IMAGE_TAG` if necessary.
-1. Run `make build`.  A new Docker container will be generated with the `IMAGE_NAME` and `IMAGE_TAG` given in the `Makefile`
 
 ## Contributions
 
