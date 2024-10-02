@@ -1,5 +1,7 @@
 # ACME webhook for InfoBlox WAPI
 
+> As of 10/2/2024 ths is the new official home of this plugin.  We will provide updates and new releases by the end of October.
+
 An InfoBlox WAPI webhook for cert-manager.
 
 This project provides a custom [ACME DNS01 Challenge Provider](https://cert-manager.io/docs/configuration/acme/dns01) as a webhook for [cert-manager](https://cert-manager.io/). This webhook integrates cert-manager with InfoBlox WAPI is a REST API. You can learn more about WAPI in this [PDF](https://www.infoblox.com/wp-content/uploads/infoblox-deployment-infoblox-rest-api.pdf).
