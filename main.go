@@ -211,7 +211,6 @@ func loadConfig(cfgJSON *apiextensionsv1.JSON) (customDNSProviderConfig, error) 
 // Configuration can be set in the webhook `config` section.
 // Two secretRefs are needed to securely pass infoblox credentials
 func (c *customDNSProviderSolver) getIbClient(cfg *customDNSProviderConfig, namespace string) (ibclient.IBConnector, error) {
-
 	// Find secret credentials
 	username, err := c.getSecret(cfg.UsernameSecretRef, namespace)
 	if err != nil {
