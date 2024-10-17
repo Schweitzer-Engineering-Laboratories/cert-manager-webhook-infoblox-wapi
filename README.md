@@ -34,7 +34,7 @@ Follow [instructions](https://cert-manager.io/docs/installation/) to install cer
 At a minimum you will need to customize `groupName` with your own group name. See [deploy/cert-manager-webhook-infoblox-wapi/values.yaml](./deploy/cert-manager-webhook-infoblox-wapi/values.yaml) for an in-depth explanation and other values that might require tweaking. With either method below, follow [helm instructions](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing) to customize your deployment.
 
 
-Docker images are stored in GitHub's [ghcr.io](ghcr.io) registry, specifically at [ghcr.io/luisico/cert-manager-webhook-infoblox-wapi](ghcr.io/luisico/cert-manager-webhook-infoblox-wapi).
+Docker images are stored in GitHub's [ghcr.io](ghcr.io) registry, specifically at [ghcr.io/schweitzer-engineering-laboratories/cert-manager-webhook-infoblox-wapi](ghcr.io/schweitzer-engineering-laboratories/cert-manager-webhook-infoblox-wapi).
 
 #### Using the public helm chart
 

@@ -52,11 +52,13 @@
         "GitHub.copilot-chat", // Copilot inline chat.
         "darkriszty.markdown-table-prettify", // markdown table prettify
         "EditorConfig.EditorConfig", // Add support for editorConfig
+        "GitHub.vscode-github-actions", // Github actions
         "Gruntfuggly.todo-tree", // TODO, FIXME, etc highlights and tree
         "huizhou.githd", // Git blame and some other git stuff
         "IronGeek.vscode-env", // For linux environment files
         "k--kato.docomment", // Code documentation
         "mhutchie.git-graph", // Git graph
+        "ms-vscode.makefile-tools", // Makefile support
         "ms-azuretools.vscode-docker", // Docker
         "redhat.vscode-yaml", // YAML
         "streetsidesoftware.code-spell-checker", // Spell checker
