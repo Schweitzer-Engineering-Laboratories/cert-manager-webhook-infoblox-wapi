@@ -22,7 +22,7 @@
   ],
   "containerEnv": {
     ////////// Repo Specific Environment Variables //////////
-    "MY_VAR": "${localEnv:MY_VAR}",
+    // "MY_VAR": "${localEnv:MY_VAR}",
     //// End Repo Specific Env Vars ////
     ////////// Dev Container specific environment variables, do not change. //////////
     // If the user has a ZSH_THEME set up then we will use it and not load Starship
@@ -85,7 +85,7 @@
           "-v",
           "-race"
         ],
-        "go.testTimeout": "10s",
+        "go.testTimeout": "30s",
         "go.coverOnSingleTest": true,
         "go.coverOnSingleTestFile": true,
         "go.coverOnTestPackage": true,
