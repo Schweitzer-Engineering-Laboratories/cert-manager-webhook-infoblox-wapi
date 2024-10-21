@@ -7,8 +7,8 @@
     "--name=cert-manager-webhook-infoblox-wapi-dev"
   ],
   "mounts": [
-    "source=cert-manager-webhook-infoblox-wapi-bashhistory,target=/commandhistory,type=volume",
-    //"source=cert-manager-webhook-infoblox-wapi-plugins,target=/home/vscode/.vscode-server/extensions,type=volume",
+    "source=go-dev-container-bashhistory,target=/commandhistory,type=volume",
+    "source=go-dev-container-plugins,target=/home/vscode/.vscode-server/extensions,type=volume",
     ///// The following should be the same for all dev containers using this image. The post_start_command.sh relies on these.
     // Your host should have a .docker directory set up and you should be logged into any Artifactory
     // repositories you need access to in the dev container.  Logging into a repo inside the dev container will not stick.
@@ -16,31 +16,30 @@
     // If you will be working with Kubernetes you should have a configured kube config file in your .kube directory.
     "source=${localEnv:HOME}/.kube,target=/home/vscode/.kube-localhost,type=bind",
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh-localhost,type=bind",
-    //"source=${localEnv:HOME}/.config/k9s,target=/home/vscode/.config/k9s-localhost,type=bind",
-    //"source=${localEnv:HOME}/.local/share/k9s,target=/home/vscode/.local/share/k9s-localhost,type=bind",
+    "source=${localEnv:HOME}/.config/k9s,target=/home/vscode/.config/k9s-localhost,type=bind",
+    "source=${localEnv:HOME}/.local/share/k9s,target=/home/vscode/.local/share/k9s-localhost,type=bind",
     "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
   ],
   "containerEnv": {
     ////////// Repo Specific Environment Variables //////////
+    "MY_VAR": "${localEnv:MY_VAR}",
     //// End Repo Specific Env Vars ////
     ////////// Dev Container specific environment variables, do not change. //////////
     // If the user has a ZSH_THEME set up then we will use it and not load Starship
     "ZSH_THEME": "${localEnv:ZSH_THEME}",
-    "KUBE_EDITOR": "nano",
     "TERM": "xterm-256color",
-    "NODE_EXTRA_CA_CERTS": "/etc/pki/ca-trust/source/anchors/zscaler.crt",
     // Used to set the hosts project path for use in scripts running inside a docker container inside the dev contianer
     "HOST_PROJECT_PATH": "${localWorkspaceFolder}", // Exaple Output: /home/davesarg-sa/src/kairos-rocky-rke2
     "WORKSPACE_FOLDER": "${containerWorkspaceFolder}", // Example Output: /workspaces/kairos-rocky-rke2
-    "TZ": "America/Los_Angeles", // Set the timezone in the devcontainer
-    "PYTHONPATH": "lib/python" // Location of our Python modules
+    "TZ": "America/Los_Angeles" // Set the timezone in the devcontainer
   },
-  "image": "devops-docker-prod.artifactory.metro.ad.selinc.com/go-dev-container:1.0.2",
-  //"initializeCommand": "docker pull devops-docker-prod.artifactory.metro.ad.selinc.com/go-dev-container:1.0",
+  "image": "ghcr.io/schweitzer-engineering-laboratories/go-dev-container:latest",
+  "initializeCommand": [
+    ".devcontainer/initialize_command.sh"
+  ],
   "postStartCommand": [
     ".devcontainer/post_start_command.sh"
   ],
-  // https://docs.docker.com/engine/reference/run/
   "init": true,
   "overrideCommand": false,
   "remoteUser": "vscode",
@@ -48,23 +47,29 @@
     "vscode": {
       "extensions": [
         "albert.TabOut", // Tab to exit closures
-        "GitHub.copilot", // Copilot
-        "GitHub.copilot-chat", // Copilot inline chat.
+        "ciiqr.encode", // encoder, such as base64, url etc.
         "darkriszty.markdown-table-prettify", // markdown table prettify
         "EditorConfig.EditorConfig", // Add support for editorConfig
+        "euskadi31.json-pretty-printer", // json pretty print
+        "foxundermoon.shell-format", // bash and sh files
+        "GitHub.copilot", // Copilot
+        "GitHub.copilot-chat", // Copilot inline chat.
         "GitHub.vscode-github-actions", // Github actions
+        "github.vscode-pull-request-github", // Github pull requests
+        "golang.go", // Golang support
         "Gruntfuggly.todo-tree", // TODO, FIXME, etc highlights and tree
         "huizhou.githd", // Git blame and some other git stuff
         "IronGeek.vscode-env", // For linux environment files
         "k--kato.docomment", // Code documentation
         "mhutchie.git-graph", // Git graph
-        "ms-vscode.makefile-tools", // Makefile support
         "ms-azuretools.vscode-docker", // Docker
+        "ms-kubernetes-tools.vscode-kubernetes-tools", // Kubernetes
         "redhat.vscode-yaml", // YAML
         "streetsidesoftware.code-spell-checker", // Spell checker
-        "yzhang.markdown-all-in-one", // markdown preview and support
-        "golang.go",
-        "github.vscode-pull-request-github" // Github interaction
+        "tamasfe.even-better-toml", // TOML
+        "tim-koehler.helm-intellisense", // Helm
+        "timonwong.shellcheck", //bash script linting
+        "yzhang.markdown-all-in-one" // markdown preview and support
       ],
       "settings": {
         "dev.containers.dockerCredentialHelper": false,
@@ -144,9 +149,9 @@
           "blockCheckingWhenTextChunkSizeGreaterThan": 10000,
           "allowCompoundWords": true
         },
-        // "vs-kubernetes": {
-        //   "vscode-kubernetes.kubectl-path": "/home/vscode/.local/share/mise/installs/kubectl/latest/bin/kubectl"
-        // },
+        "vs-kubernetes": {
+          "vscode-kubernetes.kubectl-path": "/home/vscode/.local/share/mise/installs/kubectl/latest/bin/kubectl"
+        },
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
@@ -175,8 +180,19 @@
             "siblings_only": true
           }
         },
+        "helm-intellisense.lintFileOnSave": true,
+        "helm-intellisense.customValueFileNames": [
+          "values.yaml",
+          "values-sel.yaml"
+        ],
         "markdown.extension.orderedList.autoRenumber": true,
         "markdown.extension.toc.levels": "2..6",
+        "shellcheck.customArgs": [
+          "-x" // allows shellcheck to evaluate "sourced" scripts. see https://www.shellcheck.net/wiki/SC1091
+        ],
+        "shellcheck.exclude": [
+          "SC2188" // This is excluded here because inline disable doesnt seem to work for this rule.
+        ],
         "terminal.integrated.profiles.linux": {
           "zsh": {
             "path": "/bin/zsh"

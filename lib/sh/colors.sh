@@ -5,8 +5,6 @@
 # source "lib/sh/colors.sh"
 # echo -e "${GREEN}This Text is green${NC}"
 #
-# Copyright (c) 2022 Schweitzer Engineering Laboratories, Inc.
-# SEL Confidential
 
 # shellcheck disable=SC2034
 RED="\033[1;31m"

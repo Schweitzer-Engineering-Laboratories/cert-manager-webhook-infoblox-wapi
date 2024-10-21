@@ -2,31 +2,14 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Copyright (c) 2024 Schweitzer Engineering Laboratories, Inc.
-# SEL Confidential
-
-# cSpell:ignore pylintrc
-# shellcheck disable=SC2016,SC1091
+# cSpell:ignore 
 
 main() {
-  #link_pylintrc_file
   git_update_diff_tool
   copy_ssh_folder
   copy_kube_config
-  #copy_k9s_config
+  copy_k9s_config
   copy_docker_config
-}
-
-#######################################
-# Link the .pylintrc file from the home directory to the workpace folder
-# Arguments:
-#   None
-#######################################
-link_pylintrc_file() {
-  echo "************** Linking .pylintrc from Home to Workspace folder ******************"
-  ln -f -s "${HOME}/.pylintrc" "${WORKSPACE_FOLDER}/.pylintrc"
-  echo "  - Linked."
-  echo ""
 }
 
 #######################################
