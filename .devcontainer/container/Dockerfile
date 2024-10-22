@@ -11,6 +11,11 @@ ARG BASE_IMAGE=rockylinux:9
 
 FROM $BASE_IMAGE AS builder
 
+# Optionally pass in a github read only access token if you are having problems with the container build failing 
+# due to api exhaustion.
+ARG GITHUB_TOKEN
+ENV GITHUB_API_TOKEN=${GITHUB_TOKEN}
+
 ENV TZ='America/Los_Angeles'
 
 # What user will be created in the dev container and will we run under.
