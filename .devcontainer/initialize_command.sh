@@ -6,18 +6,6 @@ IFS=$'\n\t'
 
 main() {
   get_latest_dev_container_version
-  create_required_folders
-}
-
-#######################################
-# Get the latest version of the dev container
-# Arguments:
-#   None
-#######################################
-get_latest_dev_container_version() {
-  echo "************** Pull the latest version of the container ******************"
-  docker pull ghcr.io/schweitzer-engineering-laboratories/go-dev-container:latest
-  echo ""
 }
 
 #######################################

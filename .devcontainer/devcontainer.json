@@ -33,7 +33,7 @@
     "WORKSPACE_FOLDER": "${containerWorkspaceFolder}", // Example Output: /workspaces/kairos-rocky-rke2
     "TZ": "America/Los_Angeles" // Set the timezone in the devcontainer
   },
-  "image": "ghcr.io/schweitzer-engineering-laboratories/go-dev-container:latest",
+  "dockerFile": "container/Dockerfile",
   "initializeCommand": [
     ".devcontainer/initialize_command.sh"
   ],
