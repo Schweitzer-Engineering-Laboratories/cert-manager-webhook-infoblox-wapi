@@ -5,7 +5,7 @@ IFS=$'\n\t'
 # cSpell:ignore
 
 main() {
-  get_latest_dev_container_version
+  create_required_folders
 }
 
 #######################################

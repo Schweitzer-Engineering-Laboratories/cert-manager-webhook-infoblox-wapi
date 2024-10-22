@@ -9,8 +9,7 @@ IFS=$'\n\t'
 main() {
   source /usr/bin/lib/sh/colors.sh
   echo -e "${BLUE}********************************************************************"
-  echo -e "              Go Dev Container v${DEV_CONTAINER_VERSION}"
-  echo -e "              Built: $(cat "$HOME/build_date.txt")"
+  echo -e "              Go Dev Container"
   echo -e "********************************************************************${NC}"
   echo -e "${CYAN}Type \"help\" to display this messsage again.${NC}"
   echo -e ""

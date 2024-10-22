@@ -1,10 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # See: https://hub.docker.com/r/docker/dockerfile.  Syntax directive must be first line
-# cspell:ignore FUMPT ffky lrhw valn khuw
-
-# Example build command:
-# VER=1.0.0 && IMAGE="ghcr.io/schweitzer-engineering-laboratories/go-dev-container" && docker build . --build-arg DEV_CONTAINER_VER=$VER -t ${IMAGE}:${VER} && docker push ${IMAGE}:${VER} && docker tag ${IMAGE}:${VER} ${IMAGE}:latest && docker push ${IMAGE}:latest
+# cspell:ignore FUMPT
 
 # Mise application list and versions are located in
 # home/vscode/.config/mise/config.toml
@@ -14,14 +11,6 @@ ARG BASE_IMAGE=rockylinux:9
 
 FROM $BASE_IMAGE AS builder
 
-LABEL org.opencontainers.image.source=https://github.com/schweitzer-engineering-laboratories/go-dev-container
-
-# These values must be passed in at build time.
-# Token for talking to the Github API for mise, this is a general read only token with no other permissions.
-
-# Used in help messages and for versioning the container.
-ARG DEV_CONTAINER_VER=""
-ENV DEV_CONTAINER_VERSION=${DEV_CONTAINER_VER}
 ENV TZ='America/Los_Angeles'
 
 # What user will be created in the dev container and will we run under.
