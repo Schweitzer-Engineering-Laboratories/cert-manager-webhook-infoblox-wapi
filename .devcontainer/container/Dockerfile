@@ -18,8 +18,7 @@ LABEL org.opencontainers.image.source=https://github.com/schweitzer-engineering-
 
 # These values must be passed in at build time.
 # Token for talking to the Github API for mise, this is a general read only token with no other permissions.
-ARG GITHUB_TOKEN="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"
-ENV GITHUB_API_TOKEN=${GITHUB_TOKEN}
+
 # Used in help messages and for versioning the container.
 ARG DEV_CONTAINER_VER=""
 ENV DEV_CONTAINER_VERSION=${DEV_CONTAINER_VER}
