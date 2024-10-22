@@ -49,9 +49,15 @@ spec:
             - name: certs
               mountPath: /tls
               readOnly: true
+            - name: secret-volume
+              mountPath: /etc/secrets/creds.json
+              readOnly: true
           resources:
 {{ toYaml .Values.resources | indent 12 }}
       volumes:
+        - name: secret-volume
+          hostPath: "{{ .Values.secretVolume.hostPath }}"
+          #type: Directory
         - name: certs
           secret:
             secretName: {{ include "webhook.servingCertificate" . }}

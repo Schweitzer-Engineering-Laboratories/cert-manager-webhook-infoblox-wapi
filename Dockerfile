@@ -1,6 +1,11 @@
 # syntax=docker/dockerfile:1
 
+# VER=1.6.0 && IMAGE="ghcr.io/schweitzer-engineering-laboratories/cert-manager-webhook-infoblox-wapi" && docker build . -t ${IMAGE}:${VER} && docker push ${IMAGE}:${VER} && docker tag ${IMAGE}:${VER} ${IMAGE}:latest && docker push ${IMAGE}:latest
+
+# https://hub.docker.com/_/golang/
 FROM golang:1.21-alpine AS build_deps
+
+LABEL org.opencontainers.image.source=https://github.com/schweitzer-engineering-laboratories/cert-manager-webhook-infoblox-wapi
 
 RUN apk add --no-cache git
 
@@ -16,7 +21,8 @@ FROM build_deps AS build
 COPY . .
 RUN CGO_ENABLED=0 go build -o webhook -ldflags '-w -extldflags "-static"' .
 
-FROM alpine:3.19
+# https://hub.docker.com/_/alpine/
+FROM alpine:3.20
 
 RUN apk add --no-cache ca-certificates
 

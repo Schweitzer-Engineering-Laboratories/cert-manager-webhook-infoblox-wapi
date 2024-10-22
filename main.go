@@ -21,6 +21,8 @@ import (
 	logf "github.com/cert-manager/cert-manager/pkg/logs"
 )
 
+const SecretPath = "/etc/secrets/creds.json"
+
 var GroupName = os.Getenv("GROUP_NAME")
 
 func main() {
@@ -29,14 +31,12 @@ func main() {
 	}
 
 	// This will register our custom DNS provider with the webhook serving
-	// library, making it available as an API under the provided GroupName.
+	// library, making it available as an API under the provided groupName.
 	// You can register multiple DNS provider implementations with a single
 	// webhook, where the Name() method will be used to disambiguate between
 	// the different implementations.
 
-	cmd.RunWebhookServer(GroupName,
-		&customDNSProviderSolver{},
-	)
+	cmd.RunWebhookServer(GroupName, &customDNSProviderSolver{})
 }
 
 // customDNSProviderSolver implements the provider-specific logic needed to
@@ -82,6 +82,12 @@ type customDNSProviderConfig struct {
 	SslVerify           bool                     `json:"sslVerify"           default:"false"`
 	HttpRequestTimeout  int                      `json:"httpRequestTimeout"  default:"60"`
 	HttpPoolConnections int                      `json:"httpPoolConnections" default:"10"`
+	GetUserFromVolume   bool                     `json:"bool" default:"false"`
+}
+
+type usernamePassword struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 // Name is used as the name for this DNS solver when referencing it on the ACME
@@ -211,15 +217,55 @@ func loadConfig(cfgJSON *apiextensionsv1.JSON) (customDNSProviderConfig, error) 
 // Configuration can be set in the webhook `config` section.
 // Two secretRefs are needed to securely pass infoblox credentials
 func (c *customDNSProviderSolver) getIbClient(cfg *customDNSProviderConfig, namespace string) (ibclient.IBConnector, error) {
-	// Find secret credentials
-	username, err := c.getSecret(cfg.UsernameSecretRef, namespace)
-	if err != nil {
-		return nil, err
+	var username, password string
+	hasConfig := false
+
+	if cfg.UsernameSecretRef.Key != "" && cfg.PasswordSecretRef.Key != "" {
+		hasConfig = true
+		var err error
+		// Find secret credentials
+		username, err = c.getSecret(cfg.UsernameSecretRef, namespace)
+		if err != nil {
+			return nil, err
+		}
+
+		password, err = c.getSecret(cfg.PasswordSecretRef, namespace)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	password, err := c.getSecret(cfg.PasswordSecretRef, namespace)
-	if err != nil {
-		return nil, err
+	if cfg.GetUserFromVolume && !hasConfig {
+		hasConfig = true
+		fileInfo, err := os.Stat(SecretPath)
+		if err != nil {
+			if os.IsNotExist(err) {
+				return nil, fmt.Errorf("File %s does not exist", SecretPath)
+			}
+			return nil, err
+		}
+
+		if !fileInfo.IsDir() {
+			return nil, fmt.Errorf("File %s is not a directory", SecretPath)
+		}
+
+		fileData, err := os.ReadFile(SecretPath)
+		if err != nil {
+			return nil, err
+		}
+
+		var creds usernamePassword
+		if err := json.Unmarshal(fileData, &creds); err != nil {
+			return nil, err
+		}
+
+		username = creds.Username
+		password = creds.Password
+
+	}
+
+	if !hasConfig {
+		return nil, fmt.Errorf("No secretRefs or secretPath provided")
 	}
 
 	// Set default values if needed
