@@ -11,8 +11,8 @@ ARG BASE_IMAGE=rockylinux:9
 
 FROM $BASE_IMAGE AS builder
 
-# Optionally pass in a github read only access token if you are having problems with the container build failing 
-# due to api exhaustion.
+# If you are having issues with the build, set a local env var called GITHUB_TOKEN with a read only github access token.
+# The .devcontainer/devcontainer.json file will pass this to the build.
 ARG GITHUB_TOKEN
 ENV GITHUB_API_TOKEN=${GITHUB_TOKEN}
 
@@ -48,12 +48,15 @@ COPY --chown=vscode:vscode home/vscode/.config/mise /home/vscode/.config/mise
 ARG MISE_VERBOSE=0
 ARG RUST_BACKTRACE=0
 # https://github.com/jdx/mise/releases
-ARG MISE_VERSION="v2024.10.7"
+# Passed from the .devcontainer/devcontainer.json file, static version here to use as a default.
+ARG MISE_VERSION="v2024.10.8"
 RUN /scripts/30_install_mise.sh 
 
 # https://github.com/go-delve/delve/releases
+# Passed from the .devcontainer/devcontainer.json file, static version here to use as a default.
 ARG GO_DELVE_DLV_VERSION="1.23.1"
 # https://github.com/mvdan/gofumpt/releases
+# Passed from the .devcontainer/devcontainer.json file, static version here to use as a default.
 ARG GO_FUMPT_VERSION="0.7.0"
 RUN /scripts/40_install_other_apps.sh
 

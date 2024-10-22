@@ -2,8 +2,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# cSpell:ignore 
-
 main() {
   git_update_diff_tool
   copy_ssh_folder

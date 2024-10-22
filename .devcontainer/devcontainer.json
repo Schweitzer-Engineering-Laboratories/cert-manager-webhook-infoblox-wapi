@@ -34,6 +34,16 @@
     "TZ": "America/Los_Angeles" // Set the timezone in the devcontainer
   },
   "dockerFile": "container/Dockerfile",
+  "build": {
+    "args": {
+      "MISE_VERSION": "v2024.10.8",
+      "GO_DELVE_DLV_VERSION": "1.23.1",
+      "GO_FUMPT_VERSION": "0.7.0",
+      "MISE_VERBOSE": "0",
+      "RUST_BACKTRACE": "0",
+      "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
+    }
+  },
   "initializeCommand": [
     ".devcontainer/initialize_command.sh"
   ],
