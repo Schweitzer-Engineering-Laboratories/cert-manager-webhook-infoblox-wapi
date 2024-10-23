@@ -2,8 +2,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# cSpell:ignore
-
 main() {
   create_required_folders
 }

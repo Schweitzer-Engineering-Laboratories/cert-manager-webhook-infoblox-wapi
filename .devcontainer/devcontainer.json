@@ -1,6 +1,4 @@
-// Copyright (c) 0224 Schweitzer Engineering Laboratories, Inc.
-// SEL Confidential
-// cSpell:disable
+// cSpell:ignore FUMPT ciiqr darkriszty euskadi Gruntfuggly huizhou githd kato mhutchie tamasfe koehler yzhang gopls gofumpt docomment 
 {
   "name": "cert-manager-webhook-infoblox-wapi",
   "runArgs": [
@@ -28,9 +26,9 @@
     // If the user has a ZSH_THEME set up then we will use it and not load Starship
     "ZSH_THEME": "${localEnv:ZSH_THEME}",
     "TERM": "xterm-256color",
-    // Used to set the hosts project path for use in scripts running inside a docker container inside the dev contianer
-    "HOST_PROJECT_PATH": "${localWorkspaceFolder}", // Exaple Output: /home/davesarg-sa/src/kairos-rocky-rke2
-    "WORKSPACE_FOLDER": "${containerWorkspaceFolder}", // Example Output: /workspaces/kairos-rocky-rke2
+    // Used to set the hosts project path for use in scripts running inside a docker container inside the dev container
+    "HOST_PROJECT_PATH": "${localWorkspaceFolder}",
+    "WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
     "TZ": "America/Los_Angeles" // Set the timezone in the devcontainer
   },
   "dockerFile": "container/Dockerfile",
@@ -201,7 +199,7 @@
           "-x" // allows shellcheck to evaluate "sourced" scripts. see https://www.shellcheck.net/wiki/SC1091
         ],
         "shellcheck.exclude": [
-          "SC2188" // This is excluded here because inline disable doesnt seem to work for this rule.
+          "SC2188" // This is excluded here because inline disable doesn't seem to work for this rule.
         ],
         "terminal.integrated.profiles.linux": {
           "zsh": {

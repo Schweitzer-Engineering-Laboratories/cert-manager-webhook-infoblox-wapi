@@ -32,9 +32,9 @@ export PROMPT_DIRTRIM=4
 # Set up bash history to work with the passed in Docker volume
 export PROMPT_COMMAND='history -a' &&
   export HISTFILE=/commandhistory/.bash_history
-export PATH="${HOME}/.krew/bin:${HOME}/.local:${HOME}/.local/bin:${HOME}/.local/share:$HOME/.local/share/mise/shims:$HOME/bin:$HOME/.linkerd2/bin:${PATH}"
+export PATH="${HOME}/.krew/bin:${HOME}/.local:${HOME}/.local/bin:${HOME}/.local/share:$HOME/.local/share/mise/shims:$HOME/bin:${PATH}"
 
-export EDITOR="micro"
+export EDITOR="nano"
 
 # List files colors and aliases
 export LS_COLORS=$LS_COLORS:"ow=0;32:"

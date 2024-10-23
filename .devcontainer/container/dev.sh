@@ -3,8 +3,6 @@
 # This script will start the dev container and open an interactive prompt into it.
 #
 
-# cSpell:ignore kairos, sysinfra
-
 set -euo pipefail
 IFS=$'\n\t'
 

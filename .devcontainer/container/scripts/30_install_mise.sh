@@ -3,8 +3,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# cSpell:ignore devel libuuid gdbm libnsl
-
 main() {
   source "/usr/bin/lib/sh/log.sh"
 

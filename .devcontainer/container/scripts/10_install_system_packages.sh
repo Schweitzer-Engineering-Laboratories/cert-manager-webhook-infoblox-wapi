@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# cSpell:ignore ncdu, epel, buildx, socat, devel, selinc, btop, iputils, nmap
+# cSpell:ignore epel socat
 
 # Install system packages
 main() {
@@ -31,12 +31,7 @@ main() {
   log "Installing bash completion" "green"
   dnf install -y bash-completion
 
-  log "Installing bind-utils" "green"
-  dnf install -y bind-utils
-
-  log "Installing btop" "green"
-  dnf install -y btop
-
+  log "Installing sudo" "green"
   dnf install -y sudo
 
   log "Installing ca-certificates" "green"
@@ -48,35 +43,14 @@ main() {
   log "Installing docker-buildx-plugin" "green"
   dnf install -y docker-buildx-plugin
 
-  log "Installing expect" "green"
-  dnf install -y expect
-
-  log "install genisoimage" "green"
-  dnf install -y genisoimage
-
   log "Installing git" "green"
   dnf install -y git
-
-  log "Installing graphviz" "green"
-  dnf install -y graphviz
 
   log "Installing gnupg2" "green"
   dnf install -y gnupg2
 
-  log "Installing iputils" "green"
-  dnf install -y iputils
-
   log "Installing jq" "green"
   dnf install -y jq
-
-  log "Installing ncdu" "green"
-  dnf install -y ncdu
-
-  log "Installing net-snmp-utils" "green"
-  dnf install -y net-snmp-utils
-
-  log "Installing nmap" "green"
-  dnf install -y nmap
 
   log "Installing sshpass" "green"
   dnf install -y sshpass
@@ -84,14 +58,8 @@ main() {
   log "Installing socat" "green"
   dnf install -y socat
 
-  log "Install traceroute" "green"
-  dnf install -y traceroute
-
   log "Installing util-linux-user" "green"
   dnf install -y util-linux-user
-
-  log "Installing wget" "green"
-  dnf install -y wget
 
   log "Installing xz zip unzip" "green"
   dnf install -y xz zip unzip

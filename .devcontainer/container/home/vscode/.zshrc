@@ -1,4 +1,4 @@
-# cSpell:ignore agnoster, zstyle, strftime, dotenv, mvim, ohmyzsh, krew, zshell, CWORD, tldr, tealdeermusl, fpath, kubectx, kubens, trivy
+# cSpell:ignore agnoster zstyle strftime dotenv mvim ohmyzsh fpath kubectx kubens
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -123,7 +123,7 @@ DISABLE_UPDATE_PROMPT=true
 # Set up bash history to work with the passed in Docker volume
 export PROMPT_COMMAND='history -a' &&
   export HISTFILE=/commandhistory/.bash_history
-export PATH="${HOME}/.krew/bin:${HOME}/.local:${HOME}/.local/bin:${HOME}/.local/share:$HOME/.local/share/mise/shims:$HOME/bin:$HOME/.linkerd2/bin:${PATH}"
+export PATH="${HOME}/.local:${HOME}/.local/bin:${HOME}/.local/share:$HOME/.local/share/mise/shims:$HOME/bin:${PATH}"
 
 # List files colors and aliases
 export LS_COLORS=$LS_COLORS:"ow=0;32:"

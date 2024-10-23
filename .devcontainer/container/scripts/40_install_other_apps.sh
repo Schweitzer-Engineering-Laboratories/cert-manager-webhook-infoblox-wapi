@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# cSpell:ignore kubectx kubens mvdan gofumpt gopls fumpt
+# cSpell:ignore kubectx kubens mvdan gofumpt FUMPT gopls
 
 main() {
   source "/usr/bin/lib/sh/log.sh"
